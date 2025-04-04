@@ -1,6 +1,7 @@
 package com.example.guest.ui.screens
 
 import GuestDatabaseHelper
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -49,6 +50,7 @@ fun GuestListScreen(navController: NavController) {
 
     var guestToEdit by remember { mutableStateOf<Guest?>(null) }
     var showDialog by remember { mutableStateOf(false) }
+    BackHandler {}
 
     Scaffold(
         topBar = {
