@@ -1,0 +1,1 @@
+Repository to store the features of Guest App, the final project for the Mobile Development II course.
