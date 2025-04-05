@@ -13,16 +13,25 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.guest.ui.theme.Purple40
 
 @Composable
 fun LoginScreen(navController: NavController) {
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
     Scaffold(
         content = { innerPadding ->
@@ -37,21 +46,28 @@ fun LoginScreen(navController: NavController) {
                     Text(
                         text = "Login",
                         fontSize = 25.sp,
+                        fontWeight = FontWeight.W400,
+                        color = Purple40,
                         modifier = Modifier.padding(top = 120.dp)
+
                     )
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                     Column {
                         OutlinedTextField(
                             label = { Text("E-mail") },
-                            value = "",
-                            onValueChange = {},
+                            value = email,
+                            onValueChange = {
+                                email = it
+                            },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                             modifier = Modifier.padding(bottom = 10.dp).fillMaxWidth()
                         )
                         OutlinedTextField(
                             label = { Text("Senha") },
-                            value = "",
-                            onValueChange = {},
+                            value = password,
+                            onValueChange = {
+                                password = it
+                            },
                             visualTransformation = PasswordVisualTransformation(),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                             modifier = Modifier.padding(bottom = 12.dp).fillMaxWidth()
@@ -60,7 +76,7 @@ fun LoginScreen(navController: NavController) {
                             onClick = { navController.navigate("GuestListScreen") {
                             } },
 
-                            modifier = Modifier.padding(top = 10.dp).fillMaxWidth()
+                            modifier = Modifier.padding(top = 10.dp).fillMaxWidth(),
                         ) {
                             Text("Entrar")
                         }
@@ -68,12 +84,16 @@ fun LoginScreen(navController: NavController) {
                     Text(
                         text = "Esqueci minha senha",
                         fontSize = 14.sp,
+                        fontWeight = FontWeight.W500,
+                        color = Purple40,
                         modifier = Modifier.padding(top = 12.dp)
                     )
                     Text(
                         text = "Cadastrar-se",
                         fontSize = 14.sp,
-                        modifier = Modifier.padding(top = 30.dp)
+                        fontWeight = FontWeight.W500,
+                        color = Purple40,
+                        modifier = Modifier.padding(top = 25.dp)
                     )
                 }
             }
