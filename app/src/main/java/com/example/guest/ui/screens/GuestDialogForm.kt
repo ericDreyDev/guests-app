@@ -1,9 +1,11 @@
 package com.example.guest.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -12,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.guest.data.Guest
@@ -27,6 +30,7 @@ fun GuestDialogForm(
         var name by remember { mutableStateOf(guest?.name ?: "") }
         var email by remember { mutableStateOf(guest?.email ?: "") }
         var phone by remember { mutableStateOf(guest?.phone ?: "") }
+        var confirmedChecked by remember { mutableStateOf(guest?.confirmed == 1) }
 
         AlertDialog(
             title = {
@@ -40,7 +44,8 @@ fun GuestDialogForm(
                             name = name,
                             email = email,
                             phone = phone,
-                            id = guest?.id ?: 0
+                            id = guest?.id ?: 0,
+                            confirmed = if (confirmedChecked) 1 else 0
                         )
                         name = ""
                         email = ""
@@ -87,6 +92,14 @@ fun GuestDialogForm(
                             phone = it
                         }
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(
+                            checked = confirmedChecked,
+                            onCheckedChange = { confirmedChecked = it }
+                        )
+                        Text(text = "Confirmado?")
+                    }
                 }
             }
         )

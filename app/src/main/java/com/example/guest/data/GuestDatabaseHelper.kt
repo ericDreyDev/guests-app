@@ -13,6 +13,7 @@ class GuestDatabaseHelper(context: Context) : SQLiteOpenHelper(
         private const val COLUMN_NAME = "name"
         private const val COLUMN_EMAIL = "email"
         private const val COLUMN_PHONE = "phone"
+        private const val COLUMN_CONFIRMED = "confirmed"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -21,7 +22,8 @@ class GuestDatabaseHelper(context: Context) : SQLiteOpenHelper(
                 $COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_NAME TEXT,
                 $COLUMN_EMAIL TEXT,
-                $COLUMN_PHONE TEXT
+                $COLUMN_PHONE TEXT,
+                $COLUMN_CONFIRMED INTEGER
             )
         """.trimIndent()
         db.execSQL(createTable)
@@ -40,6 +42,7 @@ class GuestDatabaseHelper(context: Context) : SQLiteOpenHelper(
             put(COLUMN_NAME, guest.name)
             put(COLUMN_EMAIL, guest.email)
             put(COLUMN_PHONE, guest.phone)
+            put(COLUMN_CONFIRMED, guest.confirmed)
         }
         return db.insert(TABLE_NAME, null, values)
     }
@@ -50,6 +53,7 @@ class GuestDatabaseHelper(context: Context) : SQLiteOpenHelper(
             put(COLUMN_NAME, guest.name)
             put(COLUMN_EMAIL, guest.email)
             put(COLUMN_PHONE, guest.phone)
+            put(COLUMN_CONFIRMED, guest.confirmed)
         }
         return db.update(TABLE_NAME, values, "$COLUMN_ID = ?", arrayOf(guest.id.toString()))
     }
@@ -78,7 +82,8 @@ class GuestDatabaseHelper(context: Context) : SQLiteOpenHelper(
                     id = getInt(getColumnIndexOrThrow(COLUMN_ID)),
                     name = getString(getColumnIndexOrThrow(COLUMN_NAME)),
                     email = getString(getColumnIndexOrThrow(COLUMN_EMAIL)),
-                    phone = getString(getColumnIndexOrThrow(COLUMN_PHONE))
+                    phone = getString(getColumnIndexOrThrow(COLUMN_PHONE)),
+                    confirmed = getInt(getColumnIndexOrThrow(COLUMN_CONFIRMED))
                 )
                 guests.add(guest)
             }
